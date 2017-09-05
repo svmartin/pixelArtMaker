@@ -1,0 +1,57 @@
+// Select color input
+// Select size input
+
+// When size is submitted by the user, call makeGrid()
+let colorPicker = document.getElementById('colorPicker');
+let form = document.getElementById("sizePicker");
+let table = document.getElementById('pixel_canvas');
+let rows;
+let columns;
+let color = "black";
+
+function makeGrid(event) {
+  event.preventDefault();
+  rows = document.getElementById('input_height').value;
+  columns = document.getElementById('input_width').value;
+  let grid = '';
+  let idCount = 0;
+  
+  for (let i = 0; i < rows; i++) {
+    grid += `<tr>`;
+    for (let j = 0; j < columns; j++) {
+      grid += `<td id=square${idCount+=1}>&nbsp;</td>`;
+    }
+    grid += `</tr>`;
+  }
+  table.innerHTML = grid;
+  addListeners();
+  console.log(color);
+}
+
+function updateColorPicker(event) {
+  color = document.getElementById("colorPicker").value;
+  return color;
+}
+
+function updateBoxColor(event) {
+  let box = document.getElementById(this.id);
+  box.style.backgroundColor = color;
+} 
+
+function addListeners() {
+  let boxes = document.getElementsByTagName("td");
+  for (let i = 0; i < boxes.length; i++) {
+    boxes[i].addEventListener("click", updateBoxColor, false);
+  }  
+}
+
+form.addEventListener("submit", makeGrid, false);
+colorPicker.addEventListener("change", updateColorPicker, false);
+// table.addEventListener("click", function(event) {
+//   let target = event.target;
+//   let id = 
+// })
+
+
+// add eventlistener to each block
+// on click change block color to current color
